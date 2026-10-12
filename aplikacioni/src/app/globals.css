@@ -1,0 +1,114 @@
+/* Stili i tre ekraneve. Rregullat kryesore nga ushtrimi:
+   - kontejneri qendror max 720px
+   - .trip-list është grid me hapësirë 16px
+   - kartat kanë padding minimumi 18px
+   - lidhjet/butonat e veprimit janë të paktën 44px të larta
+   - në 375px nuk lejohet lëvizje anash */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #0f1626;
+  color: #e4eaf4;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  /* Pa lëvizje anash, edhe nëse një tekst i gjatë futet në ekran të ngushtë. */
+  overflow-x: hidden;
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  line-height: 1.25;
+  margin: 8px 0 8px;
+  overflow-wrap: anywhere;
+}
+
+h2 {
+  font-size: 1.125rem;
+  margin: 0 0 8px;
+  overflow-wrap: anywhere;
+}
+
+p {
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+}
+
+.subtitle {
+  color: #aab6cc;
+  margin-bottom: 20px;
+}
+
+.trip-list {
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  background: #182238;
+  border: 1px solid #2a3654;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.card .action {
+  margin-top: 12px;
+}
+
+/* Lidhja "Shiko detajet", "Kërko vend" dhe butoni i çaktivizuar:
+   e njëjta pamje, minimumi 44px lartësi për t'u prekur lehtë. */
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.action:hover {
+  background: #1d4ed8;
+}
+
+.action:focus-visible,
+.back:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+/* Gjendja e çaktivizuar: vende = 0. */
+.action:disabled {
+  background: #39455b;
+  color: #e4eaf4;
+  cursor: default;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
