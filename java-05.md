@@ -8,15 +8,15 @@ Shtova hyrjen me GitHub (NextAuth, OAuth) dhe një panel te `/panel`. Identiteti
 
 ### Prova 1: Hyrja, rifreskimi dhe dalja
 
-PLOTËSO_ME_REZULTATIN_REAL
+Hapa `/panel` pa hyrë dhe paneli më kërkoi të hyj me GitHub. Pas **Hyr me GitHub** paneli tregoi emrin tim (`eltimustafa-ui`), ID-në GitHub dhe rolin `udhetar`. E rifreskova faqen dhe emri e roli mbetën. Pastaj klikova **Dil** dhe paneli më kërkoi hyrje përsëri.
 
 ### Prova 2: Shoferi ndryshon udhëtimin e vet
 
-PLOTËSO_ME_REZULTATIN_REAL
+Në Neon e bëra llogarinë time shofer dhe pronare të udhëtimit ID 2. Në panel u shfaq roli `shofer` dhe formulari. Vendosa orën 08:25 dhe klikova **Ruaj orën**. Paneli tregoi "Ora u ruajt me sukses", dhe lista, detajet e ID 2 dhe Neon treguan 08:25. Pastaj e ktheva orën në 08:15.
 
 ### Prova 3: Veprimi pa leje refuzohet
 
-PLOTËSO_ME_REZULTATIN_REAL
+Në DevTools e ndryshova fushën e fshehur `id` nga 2 në 1 dhe klikova **Ruaj orën**. Paneli tregoi "Nuk ke leje për këtë udhëtim. Ora nuk ndryshoi." Në Neon ID 1 mbeti 08:00 dhe pronari i tij mbeti `DEMO-SHOFER-2`. Pas provës ID 2 ishte 08:15.
 
 ## Ku gjendet puna
 
@@ -28,4 +28,4 @@ Kërkesa për vend është ende simulim: nuk ruhet në databazë dhe nuk njoftoh
 
 ## Ndihma nga AI (Artificial Intelligence – inteligjencë artificiale)
 
-PLOTËSO_ME_REZULTATIN_REAL
+Përdora Claude Code për të shkruar skedarët e hyrjes dhe të lejeve sipas kodit të ushtrimit, për t'i ndërtuar dhe për të kontrolluar që databaza ka gjendjen e pritur. Aplikacionin OAuth në GitHub, vlerat private te `.env.local`, SQL-në në Neon dhe tri provat i bëra vetë.
