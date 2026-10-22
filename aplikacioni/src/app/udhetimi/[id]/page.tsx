@@ -1,48 +1,48 @@
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { gjejUdhetimin, udhetimet } from "@/lib/udhetimet";
+import { gjejUdhetimin } from "@/lib/udhetimet";
 
-// Next-i i paraprodhon këto tri adresa kur ndërtohet aplikacioni. Një id tjetër
-// (p.sh. 99) shërbehet kur kërkohet dhe përfundon te notFound() më poshtë.
-export function generateStaticParams() {
-  return udhetimet.map((u) => ({ id: u.id }));
-}
+export const dynamic = "force-dynamic";
 
-// Në këtë version të Next-it, params vjen si Promise — duhet "await".
-export default async function DetajetPage({
+export default async function Kerkesa({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const udhetim = gjejUdhetimin(id);
+  let udhetim;
 
-  // Id që nuk ekziston (p.sh. /udhetimi/99): shfaqet not-found.tsx.
-  if (!udhetim) {
-    notFound();
+  try {
+    udhetim = await gjejUdhetimin(id);
+  } catch {
+    return (
+      <main>
+        <h1>RideShare</h1>
+        <p role="alert">
+          Nuk u lidhëm me databazën. Provo përsëri.
+        </p>
+        <Link href="/">← Kthehu te lista</Link>
+      </main>
+    );
   }
+
+  if (!udhetim) notFound();
 
   return (
     <main>
-      <Link className="back" href="/">
-        ← Kthehu te lista
-      </Link>
-      <h1>
-        {udhetim.nisja} → {udhetim.destinacioni}
-      </h1>
-      <p>Ora: {udhetim.ora}</p>
-      <p>Vendtakimi: {udhetim.vendtakimi}</p>
-      <p>Vende të lira: {udhetim.vende}</p>
+      <Link href={`/udhetimi/${id}`}>← Kthehu te detajet</Link>
 
-      {/* Pa vende të lira butoni është i çaktivizuar (button disabled). */}
       {udhetim.vende > 0 ? (
-        <Link className="action" href={`/udhetimi/${udhetim.id}/kerkesa`}>
-          Kërko vend
-        </Link>
+        <>
+          <h1>Simulim: Në pritje</h1>
+          <p>
+            Kërkesa për {udhetim.nisja} nuk është dërguar te shoferi.
+          </p>
+          <p>Ruajtjen dhe konfirmimin real do t’i shtojmë më vonë.</p>
+        </>
       ) : (
-        <button className="action" type="button" disabled>
-          Nuk ka vende të lira
-        </button>
+        <h1>Nuk ka vende të lira.</h1>
       )}
     </main>
   );

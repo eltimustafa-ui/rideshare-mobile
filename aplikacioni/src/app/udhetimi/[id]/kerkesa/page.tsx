@@ -1,45 +1,50 @@
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { gjejUdhetimin, udhetimet } from "@/lib/udhetimet";
+import { gjejUdhetimin } from "@/lib/udhetimet";
 
-// Next-i i paraprodhon këto tri adresa kur ndërtohet aplikacioni. Një id tjetër
-// (p.sh. 99) shërbehet kur kërkohet dhe përfundon te notFound() më poshtë.
-export function generateStaticParams() {
-  return udhetimet.map((u) => ({ id: u.id }));
-}
+export const dynamic = "force-dynamic";
 
-export default async function KerkesaPage({
+export default async function Kerkesa({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const udhetim = gjejUdhetimin(id);
+  let udhetim;
 
-  if (!udhetim) {
-    notFound();
+  try {
+    udhetim = await gjejUdhetimin(id);
+  } catch {
+    return (
+      <main>
+        <h1>RideShare</h1>
+        <p role="alert">
+          Nuk u lidhëm me databazën. Provo përsëri.
+        </p>
+        <Link href="/">← Kthehu te lista</Link>
+      </main>
+    );
   }
+
+  if (!udhetim) notFound();
 
   return (
     <main>
-      <Link className="back" href={`/udhetimi/${udhetim.id}`}>
-        ← Kthehu te detajet
-      </Link>
+      <Link href={`/udhetimi/${id}`}>← Kthehu te detajet</Link>
 
       {udhetim.vende > 0 ? (
         <>
           <h1>Simulim: Në pritje</h1>
           <p>
-            {`Kërkesa për ${udhetim.nisja} nuk është dërguar te shoferi. Ruajtjen dhe konfirmimin real do t'i shtojmë më vonë.`}
+            Kërkesa për {udhetim.nisja} nuk është dërguar te shoferi.
+          </p>
+          <p>
+            Ruajtjen dhe konfirmimin real do t’i shtojmë më vonë.
           </p>
         </>
       ) : (
-        // Këtu mund të arrihet vetëm me adresë të shkruar me dorë, sepse
-        // butoni në detaje është i çaktivizuar kur vende = 0.
-        <>
-          <h1>Nuk ka vende të lira</h1>
-          <p>{`Udhëtimi nga ${udhetim.nisja} është plot, prandaj nuk mund të dërgohet kërkesë.`}</p>
-        </>
+        <h1>Nuk ka vende të lira.</h1>
       )}
     </main>
   );

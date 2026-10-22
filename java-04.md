@@ -44,19 +44,19 @@ Në `src/lib/udhetimet.ts` u krijuan funksionet:
 
 Faqja kryesore dhe faqet e detajeve përdorin këto funksione për t'i marrë të dhënat nga databaza.
 
-## 6. Testimi
+## 6. Provat
 
-| Testi | Rezultati |
-|---|---|
-| Shfaqja e listës së udhëtimeve | Sukses |
-| Lidhja me databazën Neon | Sukses |
-| Ndryshimi i orës nga `08:15` në `08:25` në Neon | Sukses |
-| Shfaqja e detajeve të udhëtimit | Sukses |
-| Udhëtimi me zero vende të lira | Sukses |
-| Hapja e një ID-je që nuk ekziston (`99`) | Sukses |
-| Shfaqja e simulimit të kërkesës për vend | Sukses |
+### Prova 1: Ndryshimi ruhet në databazë
 
-Gjatë testimit, ora e udhëtimit të dytë u ndryshua drejtpërdrejt në Neon dhe ndryshimi u shfaq në aplikacion pa modifikuar kodin. Ora u rikthye më pas në `08:15`.
+Në Neon SQL Editor ekzekutova `UPDATE udhetimet SET ora = '08:25' WHERE id = '2';` dhe rifreskova listën. Karta 2 tregoi 08:25, dhe detajet e ID 2 treguan po 08:25, pa ndryshuar kodin. Pastaj e ktheva orën në `08:15`. ID 3 mbeti me zero vende dhe ID 99 shfaqi "Udhëtimi nuk u gjet".
+
+### Prova 2: Lista bosh nuk është gabim lidhjeje
+
+PLOTËSO_ME_REZULTATIN_REAL
+
+### Prova 3: Lidhja mungon dhe pastaj rikthehet
+
+PLOTËSO_ME_REZULTATIN_REAL
 
 ## 7. Kufizimet
 
