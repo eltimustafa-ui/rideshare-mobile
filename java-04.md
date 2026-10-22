@@ -52,11 +52,11 @@ Në Neon SQL Editor ekzekutova `UPDATE udhetimet SET ora = '08:25' WHERE id = '2
 
 ### Prova 2: Lista bosh nuk është gabim lidhjeje
 
-PLOTËSO_ME_REZULTATIN_REAL
+Te `lexoUdhetimet` ndryshova përkohësisht pyetjen në `FROM udhetimet WHERE false ORDER BY id` dhe rifreskova. Faqja shfaqi "Nuk ka udhëtime për momentin." dhe jo mesazh gabimi lidhjeje. Pastaj hoqa `WHERE false` dhe lista u rregullua: u kthyen tri kartat.
 
 ### Prova 3: Lidhja mungon dhe pastaj rikthehet
 
-PLOTËSO_ME_REZULTATIN_REAL
+Në `.env.local` riemërova përkohësisht `DATABASE_URL` në `DATABASE_URL_PA_TEST`, ndalova dhe rinisa `npm run dev` dhe rifreskova listën. Faqja shfaqi "Nuk u lidhëm me databazën. Provo përsëri." Pastaj ktheva emrin `DATABASE_URL`, rinisa serverin dhe lista u rikthye normalisht.
 
 ## 7. Kufizimet
 
