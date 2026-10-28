@@ -9,15 +9,17 @@ Manifesti (`src/app/manifest.ts`) i jep aplikacionit emrin "RideShare AAB", ikon
 ### Prova 1: Manifesti dhe vizita online
 
 Hapat: hapa `/manifest.webmanifest`, dy ikonat, `/api/udhetimet`, `/sw.js` dhe `/offline.html` me serverin lokal. Pritja: manifesti me emrin RideShare AAB dhe dy ikonat, JSON me tri udhëtime pa kredenciale.
-Rezultati: manifesti u kthye me emrin "RideShare AAB", pamjen standalone dhe ikonat 192×192 e 512×512; të dy PNG-të u hapën (200). `/api/udhetimet` ktheu tri udhëtime (ID 1, 2, 3) me header `Cache-Control: no-store`. `/sw.js` dhe `/offline.html` u hapën (200). [PLOTËSO: çfarë pe te Application → Service Workers dhe Cache Storage → rideshare-public-v1]
+Rezultati: manifesti u kthye me emrin "RideShare AAB", pamjen standalone dhe ikonat 192×192 e 512×512; të dy PNG-të u hapën (200). `/api/udhetimet` ktheu tri udhëtime (ID 1, 2, 3) me header `Cache-Control: no-store`. `/sw.js` dhe `/offline.html` u hapën (200). Në Chrome, te Application → Manifest pashë emrin "RideShare AAB" dhe emrin e shkurtër "RideShare", dhe në shiritin e adresës u shfaq butoni Install. Te Service workers `sw.js` ishte "activated" për `http://localhost:3000/`. Te Cache Storage → `rideshare-public-v1` pashë katër hyrje: `/api/udhetimet`, `/icons/icon-192.png`, `/icons/icon-512.png` dhe `/offline.html`.
 
 ### Prova 2: Pa internet dhe pas rifreskimit
 
-[PLOTËSO pas provës në Chrome/Edge: hapat, pritja (tri karta, koha e kopjes, butoni "Kërko vend" i çaktivizuar) dhe çfarë pe realisht.]
+Hapat: te Application → Service workers shënova Offline, hapa faqen RideShare dhe e rifreskova. Pritja: faqja e ruajtur me tri karta, kohën e kopjes dhe butonin "Kërko vend" të çaktivizuar.
+Rezultati: faqja "Udhëtimet, edhe pa internet" u hap pa rrjet. Mesazhi i burimit tha "Lista e fundit e ruajtur · Mund të jetë vjetruar. Serveri nuk u arrit." dhe koha e kopjes ishte 10/28/2026, 11:23:15 PM. U shfaqën tri karta: Prishtinë → AAB 08:00 (2 vende), Fushë Kosovë → AAB 08:15 (1 vend) dhe Lipjan → AAB 07:45 (0 vende). Butoni "Kërko vend · kërkon lidhje dhe server" ishte i çaktivizuar dhe nuk u konfirmua asnjë rezervim.
 
 ### Prova 3: Lidhja rikthehet
 
-[PLOTËSO pas provës: UPDATE i ID 2 në 08:25, Rifresko listën, burimi dhe ora e re, rikthimi në 08:15.]
+Hapat: me RideShare offline, te Neon SQL Editor ekzekutova `UPDATE udhetimet SET ora = '08:25' WHERE id = '2';`. Kopja offline ende tregonte 08:15. Pastaj hoqa Offline dhe shtypa "Rifresko listën".
+Rezultati: Fushë Kosovë → AAB u shfaq me orën 08:25. Mesazhi i burimit tha "Lista erdhi nga serveri. Lexo sërish para çdo veprimi." dhe koha e kopjes u ndryshua në 10/28/2026, 11:42:08 PM. Pra, rikthimi i lidhjes vetëm nuk mjafton: lista e re erdhi pasi e kërkova me butonin Rifresko listën.
 
 ## Ku gjendet puna
 
