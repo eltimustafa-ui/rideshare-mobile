@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { gjejUdhetimin } from "@/lib/udhetimet";
+import Vendtakimi from "@/components/Vendtakimi";
 
 export const dynamic = "force-dynamic";
 
@@ -44,6 +45,7 @@ export default async function Detajet({
         <p role="status">Nuk ka vende të lira.</p>
       )}
       <p>Demonstrim mësimor · pa rezervim real</p>
+      <Vendtakimi />
     </main>
   );
 }
