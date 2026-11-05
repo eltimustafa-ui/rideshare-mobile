@@ -1,11 +1,10 @@
-
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { gjejUdhetimin } from "@/lib/udhetimet";
 
 export const dynamic = "force-dynamic";
 
-export default async function Kerkesa({
+export default async function Detajet({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -31,19 +30,20 @@ export default async function Kerkesa({
 
   return (
     <main>
-      <Link href={`/udhetimi/${id}`}>← Kthehu te detajet</Link>
+      <Link href="/">← Kthehu te lista</Link>
+      <h1>{udhetim.nisja} – {udhetim.destinacioni}</h1>
+      <p>ID {udhetim.id} · Ora: {udhetim.ora}</p>
+      <p>Vendtakimi: {udhetim.vendtakimi}</p>
+      <p>Vende të lira: {udhetim.vende}</p>
 
       {udhetim.vende > 0 ? (
-        <>
-          <h1>Simulim: Në pritje</h1>
-          <p>
-            Kërkesa për {udhetim.nisja} nuk është dërguar te shoferi.
-          </p>
-          <p>Ruajtjen dhe konfirmimin real do t’i shtojmë më vonë.</p>
-        </>
+        <Link className="action" href={`/udhetimi/${id}/kerkesa`}>
+          Provo kërkesën · simulim
+        </Link>
       ) : (
-        <h1>Nuk ka vende të lira.</h1>
+        <p role="status">Nuk ka vende të lira.</p>
       )}
+      <p>Demonstrim mësimor · pa rezervim real</p>
     </main>
   );
 }
