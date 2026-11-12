@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { gjejUdhetimin } from "@/lib/udhetimet";
 import Vendtakimi from "@/components/Vendtakimi";
+import RuajUdhëtimin from "@/components/RuajUdhëtimin";
 
 export const dynamic = "force-dynamic";
 
@@ -44,6 +45,7 @@ export default async function Detajet({
       ) : (
         <p role="status">Nuk ka vende të lira.</p>
       )}
+      <RuajUdhëtimin udhetimId={udhetim.id} />
       <p>Demonstrim mësimor · pa rezervim real</p>
       <Vendtakimi />
     </main>
