@@ -68,9 +68,11 @@ export default function RuajUdhëtimin({ udhetimId }: { udhetimId: string }) {
         disabled={poRuhet}
         onClick={ruaj}
       >
-        {poRuhet ? "Po ruhet..." : ruajtur ? "Udhëtimi i ruajtur" : "Ruaj udhëtimin te të preferuarat"}
+        {poRuhet ? "Po ruhet..." : ruajtur ? "Ruaj përsëri" : "Ruaj udhëtimin te të preferuarat"}
       </button>
-      <p role="status" data-testid="save-trip-status">{mesazhi}</p>
+      <p role="status" data-testid="save-trip-status">
+        {mesazhi || (ruajtur ? "Udhëtimi u ruajt me sukses. Ruaj përsëri." : "")}
+      </p>
     </div>
   );
 }
